@@ -10,9 +10,15 @@ class UrlsController < ApplicationController
   def show
   end
 
+  def show_url
+    @link = Url.find_by_shorturl(params[:shorturl]) 
+    render 'errors/404', status: 404 if @link.nil?
+    redirect_to @link.longurl, allow_other_host: true
+  end
+
   # GET /urls/new
   def new
-    @url = Url.new
+     @url = Url.new
   end
 
   # GET /urls/1/edit
@@ -21,16 +27,28 @@ class UrlsController < ApplicationController
 
   # POST /urls or /urls.json
   def create
-    @url = Url.new(url_params)
+    # @url = Url.new(url_params)
 
-    respond_to do |format|
-      if @url.save
-        format.html { redirect_to url_url(@url), notice: "Url was successfully created." }
-        format.json { render :show, status: :created, location: @url }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @url.errors, status: :unprocessable_entity }
-      end
+    # respond_to do |format|
+    #   if @url.save
+    #     format.html { redirect_to url_url(@url), notice: "Url was successfully created." }
+    #     format.json { render :show, status: :created, location: @url }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @url.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    render :json => ""
+  end
+
+  def addurl
+    long_url = params['longurl']
+    short_url = rand(36**8).to_s(36)
+    @url = Url.new()
+    @url.longurl =long_url
+    @url.shorturl = short_url
+    if @url.save
+      render :json => {"shorturl":short_url}
     end
   end
 

@@ -1,22 +1,50 @@
-<%= form_with(model: url) do |form| %>
-  <% if url.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(url.errors.count, "error") %> prohibited this url from being saved:</h2>
 
-      <ul>
-        <% url.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div>
-    <%= form.label :longurl, style: "display: block" %>
-    <%= form.text_field :longurl %>
-  </div>
+<!Doctype html>
+<html>
 
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+<head>
+	<!--Include JQuery Library -->
+	<script src=
+"https://code.jquery.com/jquery-3.5.0.js">
+	</script>
+	<script>
+
+	$(() => {
+		$("#submitButton").click(function(ev) {
+      		alert("hiiii");
+			var url = form.attr('/addurl');
+      		alert (url +"");
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: form.serialize(),
+				success: function(data) {
+					
+					// Ajax call completed successfully
+					alert("Form Submited Successfully");
+				},
+				error: function(data) {
+					
+					// Some error in ajax call
+					alert("some Error");
+				}
+			});
+		});
+	});
+	</script>
+</head>
+
+<body>
+		<br> Url:
+		<input type='text'
+			id='longurl'
+			name='longurl'>
+		</input>
+		<button 
+			id='submitButton'>
+			Submit
+		</button>
+</body>
+
+</html>

@@ -1,14 +1,105 @@
-<p style="color: green"><%= notice %></p>
 
 <h1>Urls</h1>
+<!Doctype html>
+<html>
 
+<head>
+	<!--Include JQuery Library -->
+	<script src=
+"https://code.jquery.com/jquery-3.5.0.js">
+	</script>
+	<script>
+
+	$(() => {
+		$("#submitButton").click(function(ev) {
+			var url = "/addurl";
+			$.ajax({
+				type: "POST",
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+				url: url,
+				data: { longurl: $("#longurl").val(), },
+				success: function(data) {
+					
+					// Ajax call completed successfully
+          var a = data;
+          $("#shorturl").empty().append("Shorten url : localhost:3000/"+data['shorturl']);
+				},
+				error: function(data) {
+					
+					// Some error in ajax call
+					alert("some Error");
+				}
+			});
+		});
+	});
+	</script>
+
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  input[type=text], select {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  border-radius:5px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+		<br> Url:
+		<input type='text'
+			id='longurl'
+			name='longurl'>
+		</input>
+		<button class="button"
+			id='submitButton'>
+			Submit
+		</button>
+    <br>
+    <div id ="shorturl"> </div>
+</body>
+
+</html>
+
+<table>
+  <tr>
+    <th>Long Url</th>
+    <th>Shorten Url</th>
+    <th>Link</th>
+  </tr>
 <div id="urls">
   <% @urls.each do |url| %>
-    <%= render url %>
-    <p>
-      <%= link_to "Show this url", url %>
-    </p>
+    <tr>
+      <td><%= url.longurl %></td>
+      <td><a href="http://localhost:3000/<%= url.shorturl %>"> http://localhost:3000/<%= url.shorturl %> </a></td>
+      <td><%= link_to "Show this url", url%> </td>
+    </tr>
   <% end %>
-</div>
-
-<%= link_to "New url", new_url_path %>

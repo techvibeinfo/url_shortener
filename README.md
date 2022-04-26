@@ -1,24 +1,33 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+# Ruby on Rails Url Shortener application
 
-* Ruby version
+This is the Sample application for shortening the URL
+## Getting started
 
-* System dependencies
+To get started with the app, clone the repo and then install the needed gems:
 
-* Configuration
+```
+$ cd /path/to/repos
+$ git clone https://github.com/techvibeinfo/url_shortener.git url_shortener
+$ cd url_shortener
+$ bundle install --without production
+```
+Using mysql as databse, 
 
-* Database creation
+Create the Database
+```
+$ rails db:create
+```
 
-* Database initialization
+Next, migrate the database:
 
-* How to run the test suite
+```
+$ rails db:migrate
+```
+Run the app in a local server:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+$ rails server
+```
 
-* Deployment instructions
-
-* ...

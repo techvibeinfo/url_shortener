@@ -30,4 +30,10 @@ Run the app in a local server:
 ```
 $ rails server
 ```
+For shortening the Url, Open the browser and enter 
+```
+http://localhost:3000/
+```
 
+Enter the URL that you want to shorten in the text box and click the submit button.
+The shorten url will be displayed on the screen and the it is saved into the database.
